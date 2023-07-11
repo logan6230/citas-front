@@ -30,7 +30,7 @@ async function init(data) {
  */
 async function renderTable(tableType) {
     // Configuración de la API
-    const apiUrl = "http://localhost:3000";
+    const apiUrl = "http://localhost:8080/api";
     const dataFetcher = new ApiDataFetcher(apiUrl);
 
     // Configuración de la tabla
@@ -118,7 +118,7 @@ async function handleDeletePatient(event) {
     deletePatient(rowData.cedula);
 }
 async function deletePatient(idPatient) {
-    const response = await fetch(`http://localhost:3000/eliminarPaciente/${idPatient}`, {
+    const response = await fetch(`http://localhost:8080/api/paciente/${idPatient}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -163,7 +163,7 @@ function fillFormWithRowData(button) {
     const fechaNacimientoInput = document.getElementById("fechaNacimiento");
     // Formatear la fecha de nacimiento para que sea compatible con el input
     const fechaParts = rowData.fechaNacimiento.split('/');
-    const fechaNacimiento = new Date(`${fechaParts[2]}-${fechaParts[1]}-${fechaParts[0]}`);
+    const fechaNacimiento = new Date(`${fechaParts[2]}-${fechaParts[1]}-${fechaParts[0]}`);    
     const fechaFormateada = fechaNacimiento.toISOString().split('T')[0];
     fechaNacimientoInput.value = fechaFormateada;
     const telefonoInput = document.getElementById("telefono");
@@ -186,7 +186,7 @@ function crearPaciente(btnCrear) {
             telefono: form.elements.telefono.value,
         };
         try {
-            const response = await fetch(`http://localhost:3000/crearPaciente`, {
+            const response = await fetch(`http://localhost:8080/api/paciente`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -228,7 +228,7 @@ function editPatient(btnEditar) {
             telefono: form.elements.telefono.value,
         };
         try {
-            const response = await fetch(`http://localhost:3000/actualizarPaciente`, {
+            const response = await fetch(`http://localhost:8080/api/paciente`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

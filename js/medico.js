@@ -30,7 +30,7 @@ async function init(data) {
  */
 async function renderTable(tableType) {
     // Configuración de la API
-    const apiUrl = "http://localhost:3000";
+    const apiUrl = "http://localhost:8080/api";
     const dataFetcher = new ApiDataFetcher(apiUrl);
 
     // Configuración de la tabla
@@ -153,7 +153,7 @@ function fillFormWithRowData(button) {
         consultorio: row.querySelector('.consultorio').innerText,
         telefono: row.querySelector('.telefono').innerText,
         email: row.querySelector('.email').innerText,
-        idEspecialidad: row.querySelector('.Especialidad').innerText,
+        idEspecialidad: row.querySelector('.especialidad').innerText,
     };
     // Luego, puedes establecer los valores en los campos del formulario
     const tarjetaProfesionalInput = document.getElementById("tarjetaProfesional");

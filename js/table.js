@@ -76,11 +76,12 @@ class ApiDataFetcher {
                 "Accept": "application/json"
             }
         });
-
+        
         if (!response.ok) {
             throw new Error(`Error fetching data: ${response.statusText}`);
         }
         const data = await response.json();
+        console.log('------>Response ', data);
         return data;
     }
 }
@@ -152,8 +153,8 @@ class ApiTableRenderer {
         let datos = data;
         if (idElements === "Cita") {
             datos = data.flatMap((cita) => {
-                const { idCita, fechaCita, Paciente, Medico: { nombre, Especialidad } } = cita;
-                return { idCita, fechaCita, Paciente, nombre, Especialidad };
+                const { idCita, fechaCita, paciente, medico: { nombre, especialidad } } = cita;
+                return { idCita, fechaCita, paciente, nombre, especialidad };
             }
             );
         }

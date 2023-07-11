@@ -30,7 +30,7 @@ async function init(data) {
  */
 async function renderTable(tableType) {
     // Configuración de la API
-    const apiUrl = "http://localhost:3000";
+    const apiUrl = "http://localhost:8080/api";
     const dataFetcher = new ApiDataFetcher(apiUrl);
 
     // Configuración de la tabla
@@ -119,7 +119,7 @@ async function handleDeletePatient(event) {
 }
 async function deleteAppointment(idCita) {
     console.log('idCita', idCita);
-    const response = await fetch(`http://localhost:3000/cita/${idCita}`, {
+    const response = await fetch(`http://localhost:8080/api/cita/${idCita}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -147,7 +147,7 @@ function fillFormWithRowData(button) {
     const rowData = {
         idCita: row.querySelector('.idCita').innerText,
         fechaCita: row.querySelector('.fechaCita').innerText,
-        pacienteCedula: row.querySelector('.Paciente').innerText,
+        pacienteCedula: row.querySelector('.paciente').innerText,
         medicoTarjetaProfesional: row.querySelector('.nombre').innerText,
     };
 
@@ -158,10 +158,13 @@ function fillFormWithRowData(button) {
 
     // fechaCitaInput.value = rowData.fechaCita
     const fechaCitaInput = document.getElementById("fechaCita");
+    console.log(fechaCitaInput);
     // Formatear la fecha de nacimiento para que sea compatible con el input
-    const fechaParts = rowData.fechaCita.split('/');
+    const fechaParts = rowData.fechaCita.split('-');
+    console.log(fechaParts);   
     const fechaCita = new Date(`${fechaParts[2]}-${fechaParts[1]}-${fechaParts[0]}`);
-    const fechaFormateada = fechaCita.toISOString().split('T')[0];
+    console.log(fechaCita);   
+     const fechaFormateada = fechaCita.toISOString().split('T')[0];
     fechaCitaInput.value = fechaFormateada;
 
     const pacienteCedulaInput = document.getElementById("cedulaPaciente");
@@ -191,7 +194,7 @@ function crearCita(btnCrear) {
 
         };
         try {
-            const response = await fetch(`http://localhost:3000/crearCita`, {
+            const response = await fetch(`http://localhost:8080/api/cita`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -232,7 +235,7 @@ function editCita(btnEditar) {
             medicoTarjetaProfesional: form.elements.tarjetaProfesional.value,
         };
         try {
-            const response = await fetch(`http://localhost:3000/actualizarCita`, {
+            const response = await fetch(`http://localhost:8080/api/cita`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

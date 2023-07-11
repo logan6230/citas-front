@@ -73,7 +73,7 @@ class FormEngine extends IFormEngine {
                     select.innerHTML = especialidades
                         .map(
                             (medico) =>
-                                `<option value="${medico.tarjetaProfesional}">${medico.nombre} ${medico.apellido}-${medico.Especialidad.nombre}</option>`
+                                `<option value="${medico.tarjetaProfesional}">${medico.nombre} ${medico.apellido}-${medico.especialidad.nombre}</option>`
                         )
                         .join("");
                     formHtml.appendChild(select);
@@ -144,7 +144,7 @@ class FormEngine extends IFormEngine {
      * @returns {Promise<Array>} - Una promesa que se resuelve con la lista de especialidades.
      */
     async fetchEspecialidades() {
-        const response = await fetch("http://localhost:3000/especialidades", {
+        const response = await fetch("http://localhost:8080/api/especialidades", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -165,7 +165,7 @@ class FormEngine extends IFormEngine {
  * @returns {Promise<Array>} - Una promesa que se resuelve con la lista del dato que se pase.
  */
     async fetchData(dato) {
-        const response = await fetch(`http://localhost:3000/${dato}`, {
+        const response = await fetch(`http://localhost:8080/api/${dato}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -188,7 +188,7 @@ class FormEngine extends IFormEngine {
      * @private
      */
     async _fetchForm(formType) {
-        const response = await fetch(`http://localhost:3000/formulario/${formType}`);
+        const response = await fetch(`http://localhost:8080/formulario/${formType}`);
         const form = await response.json();
         return form;
     }
