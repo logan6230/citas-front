@@ -124,10 +124,10 @@ async function deletePatient(idPatient) {
             'Content-Type': 'application/json'
         },
     });
-    const data = await response.json();
+    const data = await response.ok;
 
     if (data) {
-        alert(`Paciente ${data.nombre} ${data.apellido} eliminado con exito!`, 'success')
+        alert(`Paciente eliminado con exito!`, 'success')
         //limpiar la tabla
         const table = document.getElementById("pacientes");
         table.innerHTML = "";
@@ -162,8 +162,8 @@ function fillFormWithRowData(button) {
     apellidoInput.value = rowData.apellido;
     const fechaNacimientoInput = document.getElementById("fechaNacimiento");
     // Formatear la fecha de nacimiento para que sea compatible con el input
-    const fechaParts = rowData.fechaNacimiento.split('/');
-    const fechaNacimiento = new Date(`${fechaParts[2]}-${fechaParts[1]}-${fechaParts[0]}`);    
+    const fechaParts = rowData.fechaNacimiento.split('-');
+    const fechaNacimiento = new Date(`${fechaParts[0]}-${fechaParts[1]}-${fechaParts[2]}`);    
     const fechaFormateada = fechaNacimiento.toISOString().split('T')[0];
     fechaNacimientoInput.value = fechaFormateada;
     const telefonoInput = document.getElementById("telefono");

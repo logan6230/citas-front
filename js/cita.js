@@ -125,8 +125,8 @@ async function deleteAppointment(idCita) {
             'Content-Type': 'application/json'
         },
     });
-    const data = await response.json();
-
+    const data = await response.ok;
+    console.log(data);
     if (data) {
         alert(`La cita ha sido eliminada con exito`, 'success')
 
@@ -161,10 +161,10 @@ function fillFormWithRowData(button) {
     console.log(fechaCitaInput);
     // Formatear la fecha de nacimiento para que sea compatible con el input
     const fechaParts = rowData.fechaCita.split('-');
-    console.log(fechaParts);   
-    const fechaCita = new Date(`${fechaParts[2]}-${fechaParts[1]}-${fechaParts[0]}`);
-    console.log(fechaCita);   
-     const fechaFormateada = fechaCita.toISOString().split('T')[0];
+    console.log(fechaParts);
+    const fechaCita = new Date(`${fechaParts[0]}-${fechaParts[1]}-${fechaParts[2]}`);
+    console.log(fechaCita);
+    const fechaFormateada = fechaCita.toISOString().split('T')[0];
     fechaCitaInput.value = fechaFormateada;
 
     const pacienteCedulaInput = document.getElementById("cedulaPaciente");
@@ -235,6 +235,7 @@ function editCita(btnEditar) {
             medicoTarjetaProfesional: form.elements.tarjetaProfesional.value,
         };
         try {
+            console.log("-----< ", datos);
             const response = await fetch(`http://localhost:8080/api/cita`, {
                 method: "PUT",
                 headers: {

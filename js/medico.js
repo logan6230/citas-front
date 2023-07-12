@@ -88,11 +88,11 @@ function createDoctor(btnCrear) {
             consultorio: form.elements.consultorio.value,
             telefono: form.elements.telefono.value,
             email: form.elements.email.value,
-            idEspecialidad: form.elements.idEspecialidad.value,
+            especialidad: form.elements.idEspecialidad.value,
         };
 
         try {
-            const response = await fetch(`http://localhost:3000/crearMedico`, {
+            const response = await fetch(`http://localhost:8080/api/medico`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -189,10 +189,10 @@ function editDoctor(btnEditar) {
             consultorio: form.elements.consultorio.value,
             telefono: form.elements.telefono.value,
             email: form.elements.email.value,
-            IdEspecialidad: form.elements.idEspecialidad.value,
+            especialidad: form.elements.idEspecialidad.value,
         };
         try {
-            const response = await fetch(`http://localhost:3000/actualizarMedico`, {
+            const response = await fetch(`http://localhost:8080/api/medico`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -222,29 +222,29 @@ function editDoctor(btnEditar) {
 function captureDeleteButton(buttonClass) {
     const buttons = document.getElementsByClassName("eliminar-medico");
     for (const button of buttons) {
-        button.addEventListener("click", handleDeleteCodctor)
+        button.addEventListener("click", handleDeleteDoctor)
     }
 
 }
 
-async function handleDeleteCodctor(event) {
+async function handleDeleteDoctor(event) {
     event.preventDefault();
     const button = event.target;
     const row = button.parentNode.parentNode;
     const tarjetaProfesional = row.querySelector('.tarjetaProfesional').innerText;
     try {
-        const response = await fetch(`http://localhost:3000/medico/${tarjetaProfesional}`, {
+        const response = await fetch(`http://localhost:8080/api/medico/${tarjetaProfesional}`, {
             method: "DELETE",
         });
-        const result = await response.json();
-        alert(`Medico ${result.nombre} ${result.apellido} eliminado con exito!`, 'success')
+        const result = await response.ok;
+        alert(`Medico eliminado con exito!`, 'success')
         //limpiar la tabla
         const table = document.getElementById("medicos");
         table.innerHTML = "";
         //actualizar la tabla
         init("medicos");
     } catch (error) {
-        alert('La cita no ha sido eliminada!', 'danger')
+        alert('El medico no ha sido eliminada!', 'danger')
     }
 
 }
